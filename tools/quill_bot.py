@@ -60,6 +60,7 @@ SERVER_ID = SETTINGS.get("server_id")                               # only use t
 
 INCOMING = QUILL_FOLDER / "incoming"      # the bridge drops notebook entries here
 REVIEW_FILE = QUILL_FOLDER / "review.json"       # what's waiting / decided in #quill-review
+POSTED_FILE = QUILL_FOLDER / "posted.json"                     # every note already put on a card - never twice
 APPROVED_FILE = QUILL_FOLDER / "approved.json"   # everything officers have approved
 BACKUPS = QUILL_FOLDER / "backups"               # hourly snapshots, kept for 14 days
 PHRASES_FILE = QUILL_FOLDER / "QuillPhrases.lua"  # the addon's phrasebook - the jokes come from here
@@ -323,9 +324,23 @@ async def check_incoming():
     for path in sorted(INCOMING.glob("*.json")):
         if time.time() - path.stat().st_mtime < 3:      # still arriving - next round
             continue
-        for entry in load_json(path, []):
-            await post_card(channel, entry)
-        path.unlink()
+        entries = load_json(path, [])
+        path.unlink()                    # take the file first: a hiccup below must never post the batch again
+        posted = set(load_json(POSTED_FILE, []))
+        posted |= {f"{e.get('when')}|{e.get('name')}|{e.get('kind')}|{e.get('text')}"   # cards from before this list
+                   for e in review.values() if isinstance(e, dict)}
+        for entry in entries:
+            key = f"{entry.get('when')}|{entry.get('name')}|{entry.get('kind')}|{entry.get('text')}"
+            if key in posted:
+                print(f"Skipped a repeat: {entry.get('kind')} from {entry.get('name')}")
+                continue
+            try:
+                await post_card(channel, entry)
+            except Exception as problem:             # one bad card mustn't stop the rest
+                print(f"Couldn't post a {entry.get('kind')} from {entry.get('name')}: {problem}")
+                continue
+            posted.add(key)
+            save_json(POSTED_FILE, sorted(posted))
 
 
 async def post_new_member(entry):
