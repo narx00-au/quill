@@ -45,7 +45,8 @@ QuillPhrases.wakeWords = {
 -- Quill asks, and their next message is taken as the lesson or joke.
 QuillPhrases.intents = {
     newJoke = { "new joke", "i have a joke", "ive got a joke", "i got a joke", "heres a joke", "joke for you",
-                "hear this joke", "hear a joke", "submit a joke", "add a joke" },
+                "hear this joke", "hear a joke", "submit a joke", "add a joke",
+                "teach you a joke", "tell you a joke", "learn a joke", "remember this joke", "know this joke" },
     teach   = { "teach", "learn", "remember", "note", "write down", "write this down", "did you know", "fyi",
                 "fun fact", "til", "add this", "record this", "save this" },
     help    = { "help", "what can you do", "commands", "how do i use you", "how does this work", "what do you do" },

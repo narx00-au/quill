@@ -341,7 +341,8 @@ local DEFAULT_INTENTS = {
 local FILLER = { [""] = true, ["something"] = true, ["something new"] = true, ["a thing"] = true,
                  ["this"] = true, ["stuff"] = true, ["one"] = true, ["a joke"] = true, ["something for you"] = true,
                  ["a new joke"] = true, ["you something"] = true, ["something from me"] = true,
-                 ["for you"] = true, ["for ya"] = true, ["you"] = true, ["something you should know"] = true }
+                 ["for you"] = true, ["for ya"] = true, ["you"] = true, ["something you should know"] = true,
+                 ["you a joke"] = true, ["you a new joke"] = true }
 
 local function looksLikeQuestion(message, rest)
     return message:find("?", 1, true) or rest:find("^what") or rest:find("^where") or rest:find("^how")

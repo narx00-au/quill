@@ -3,7 +3,7 @@
 ## Notes: The guild scribe. Say "hey quill, help" in guild chat.
 ## Author: narx00
 ## X-Credits: Designed by narx00. Code written by Claude (claude.ai), Anthropic's AI.
-## Version: 0.11
+## Version: 0.12
 ## SavedVariables: QuillDB
 
 QuillGuild.lua
