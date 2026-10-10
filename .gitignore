@@ -1,0 +1,15 @@
+# Never commit a guild's keys or Discord data
+token.txt
+anthropic_key.txt
+settings.json
+approved.json
+review.json
+incoming/
+outbox/
+learned/
+backups/
+*.log
+__pycache__/
+build/
+dist/
+*.spec

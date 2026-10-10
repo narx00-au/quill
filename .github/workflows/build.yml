@@ -1,0 +1,60 @@
+# Builds QuillSetup.exe on GitHub's own Windows machine.
+# Runs when a version tag is pushed (v0.11, v1.0 ...) or by hand from the Actions tab.
+# A tag also makes a Release with the exe and the addon zip attached.
+name: Build QuillSetup.exe
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install what Quill Office needs
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+
+      - name: Build QuillOffice.exe (the back office - runs hidden, no window)
+        run: >
+          pyinstaller --onefile --noconsole --name QuillOffice
+          --paths tools --hidden-import quill_bot --hidden-import quill_bridge
+          --collect-submodules discord --collect-submodules anthropic
+          tools/quill_office.py
+
+      - name: Build QuillSetup.exe (the wizard - carries the addon and QuillOffice.exe inside it)
+        run: >
+          pyinstaller --onefile --windowed --name QuillSetup
+          --add-data "addon/Quill;addon/Quill"
+          --add-data "dist/QuillOffice.exe;."
+          tools/quill_setup.py
+
+      - name: Zip the addon for players
+        shell: pwsh
+        run: Compress-Archive -Path addon/Quill -DestinationPath dist/Quill-addon.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Quill
+          path: |
+            dist/QuillSetup.exe
+            dist/Quill-addon.zip
+
+      - name: Make the Release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/QuillSetup.exe
+            dist/Quill-addon.zip
