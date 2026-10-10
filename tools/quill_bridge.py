@@ -196,6 +196,25 @@ def make_learned_lua(data):
     return "\n".join(lines) + "\n"
 
 
+def heal_learned(last):
+    """If something replaced QuillLearned.lua with a blank one (say, a release zip unzipped over the
+    addon), the game would stop knowing this is the bridge PC. Put the stamped one straight back."""
+    for folder in addon_folders():
+        path = folder / "QuillLearned.lua"
+        try:
+            stamped = "bridgePC" in path.read_text(encoding="utf-8")
+        except FileNotFoundError:
+            stamped = False
+        if not stamped:
+            try:
+                data = json.loads(last) if last else {}
+            except json.JSONDecodeError:
+                data = {}
+            write_learned(data)
+            say(f"QuillLearned.lua had been replaced with a blank one - put the bridge PC's copy back in {folder}.")
+            return
+
+
 def addon_folders():
     pattern = WOW_FOLDER + r"\_*_\Interface\AddOns\Quill"
     return [Path(p) for p in glob.glob(pattern)]
@@ -342,6 +361,7 @@ def main():
         check_once(sent)
         if time.time() >= next_fetch:
             last = fetch_approved(last)
+            heal_learned(last)
             next_fetch = time.time() + FETCH_EVERY
         time.sleep(CHECK_EVERY)
 
