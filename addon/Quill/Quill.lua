@@ -45,6 +45,35 @@ local function tidy(text)
 end
 
 -- Does the tidied text contain this word or phrase as whole words?
+-- Chat shorthand -> plain words, so "wen is raid 2nite" reads like "when is raid tonight".
+-- Only used for working out what someone means; what they typed is kept as they typed it.
+local SHORTHAND = {
+    u = "you", ya = "you", yu = "you", ur = "your", r = "are", pls = "please", plz = "please", plox = "please",
+    thx = "thanks", thnx = "thanks", thanx = "thanks", tnx = "thanks", tyvm = "thanks", tysm = "thanks",
+    wen = "when", wat = "what", wut = "what", whens = "when is", wheres = "where is",
+    ["2nite"] = "tonight", ["2night"] = "tonight", tonite = "tonight", tmrw = "tomorrow", tmr = "tomorrow",
+    ["2moro"] = "tomorrow", ["2day"] = "today", gratz = "grats", ["gl&hf"] = "glhf", bc = "because", cuz = "because",
+    abt = "about", ppl = "people", sum1 = "someone", some1 = "someone", any1 = "anyone", ne1 = "anyone",
+}
+
+local function normalize(text)
+    return (text:gsub("%S+", function(word) return SHORTHAND[word] end))
+end
+
+-- Words people start with before getting to the point: "lol what is...", "ok so where...", "btw how do I...".
+local OPENERS = { lol = true, lmao = true, haha = true, hehe = true, ok = true, okay = true, so = true, um = true,
+                  uh = true, hmm = true, btw = true, also = true, oh = true, well = true, right = true, please = true,
+                  hey = true, hi = true, yo = true, oi = true, quick = true, question = true, mate = true }
+
+local function skipOpeners(text)
+    local first, after = text:match("^(%S+) (.+)$")
+    while first and OPENERS[first] do
+        text = after
+        first, after = text:match("^(%S+) (.+)$")
+    end
+    return text
+end
+
 local function has(text, phrase)
     return (" " .. text .. " "):find(" " .. phrase .. " ", 1, true) ~= nil
 end
@@ -348,7 +377,9 @@ local function looksLikeQuestion(message, rest)
     return message:find("?", 1, true) or rest:find("^what") or rest:find("^where") or rest:find("^how")
         or rest:find("^when") or rest:find("^who") or rest:find("^why") or rest:find("^which")
         or rest:find("^can ") or rest:find("^does ") or rest:find("^do ") or rest:find("^is ")
-        or rest:find("^are ") or rest:find("^did ") or false
+        or rest:find("^are ") or rest:find("^did ") or rest:find("^should ") or rest:find("^could ")
+        or rest:find("^would ") or rest:find("^will ") or rest:find("^has ") or rest:find("^have ")
+        or rest:find("^anyone ") or rest:find("^any ") or false
 end
 
 -- Returns the intent ("newJoke", "teach", "help", "joke" or nil) and what came after the trigger words.
@@ -387,7 +418,7 @@ local function handle(message, sender, whisperTo)
     if message:sub(1, #PREFIX) == PREFIX then return end
 
     local name  = Ambiguate(sender, "short")   -- "Grimtusk-Realm" becomes "Grimtusk"
-    local text  = tidy(message)
+    local text  = normalize(tidy(message))
     local P     = QuillPhrases
     local function respond(lines) return reply(name, lines, sender, whisperTo) end
 
@@ -448,6 +479,7 @@ local function handle(message, sender, whisperTo)
     if not allowed(name, respond) then return end
 
     if spokenTo then
+        rest = skipOpeners(rest)
         if rest == "" then
             return respond(pick(P.smallTalk[1].lines))          -- just "hey quill"
         end
@@ -511,8 +543,9 @@ local function handle(message, sender, whisperTo)
     end
 
     -- Small talk works both ways: "hey quill, thanks" and "thanks quill".
+    local words = select(2, rest:gsub("%S+", ""))
     for _, topic in ipairs(P.smallTalk) do
-        if hasAny(rest, topic.words) then
+        if hasAny(rest, topic.words) and words <= (topic.maxWords or 99) then
             return respond(pick(topic.lines))
         end
     end

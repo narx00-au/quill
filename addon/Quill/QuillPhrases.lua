@@ -23,6 +23,8 @@ QuillPhrases.wakeWords = {
     { words = "excuse me quill", firm = true },
     { words = "dear quill", firm = true },
     { words = "hey scribe", firm = true },
+    { words = "hey quil", firm = true },
+    { words = "quil" },
     { words = "quill" },
     { words = "hi quill" },
     { words = "hello quill" },
@@ -48,9 +50,13 @@ QuillPhrases.intents = {
                 "hear this joke", "hear a joke", "submit a joke", "add a joke",
                 "teach you a joke", "tell you a joke", "learn a joke", "remember this joke", "know this joke" },
     teach   = { "teach", "learn", "remember", "note", "write down", "write this down", "did you know", "fyi",
-                "fun fact", "til", "add this", "record this", "save this" },
-    help    = { "help", "what can you do", "commands", "how do i use you", "how does this work", "what do you do" },
-    joke    = { "joke", "jokes", "something funny", "make me laugh", "cheer me up", "tell me something funny" },
+                "fun fact", "til", "add this", "record this", "save this",
+                "remember that", "pro tip", "heres a tip", "for the record", "just so you know" },
+    help    = { "help", "what can you do", "commands", "how do i use you", "how does this work", "what do you do",
+                "how do you work", "how do i talk to you", "what do you know", "list commands", "options", "halp" },
+    joke    = { "joke", "jokes", "something funny", "make me laugh", "cheer me up", "tell me something funny",
+                "tell me a joke", "got any jokes", "say something funny", "entertain me", "make me smile",
+                "im sad", "i am sad", "pun", "dad joke" },
 }
 
 QuillPhrases.standard = {
@@ -73,33 +79,38 @@ QuillPhrases.standard = {
 -- "words" are what the player might say (lowercase, no punctuation).
 QuillPhrases.smallTalk = {
     {
-        words = { "hi", "hello", "hey", "yo", "sup" },
+        words = { "hi", "hello", "hey", "yo", "sup", "hiya", "heya", "howdy", "gday", "oi", "o",
+                  "morning", "good morning", "evening", "good evening", "afternoon", "greetings" },
         lines = { "Hi {name}.", "{name}! What do you need?", "Quill reporting for duty. Mostly.",
                   "Hey {name}. Ink's ready.", "Ah, {name}. I was just writing about you. All good things." },
     },
     {
-        words = { "thanks", "thank you", "ty", "thx", "cheers" },
+        words = { "thanks", "thank you", "ty", "thx", "cheers", "ta", "thanks heaps", "much appreciated",
+                  "appreciate it", "cheers mate" },
         lines = { "Any time, {name}.", "That's what I'm here for.", "Put it on my tab.",
                   "No worries, {name}.", "Happy to help. Tell your friends." },
     },
     {
-        words = { "good night", "goodnight", "gn", "night" },
+        words = { "good night", "goodnight", "gn", "night", "nn", "night all", "off to bed", "bed time",
+                  "bedtime", "sleep time" },
         lines = { "Night {name}. Don't log out in the fire.", "Sleep well. The quests will still be there.",
                   "Night {name}. I'll guard your loot. Probably.", "Rest up, {name}. Raid needs you sharp.",
                   "Off you go. Rested XP won't earn itself." },
     },
     {
-        words = { "are you a bot", "you a bot", "bot" },
+        words = { "are you a bot", "you a bot", "a bot", "robot", "are you a robot", "are you real", "are you ai", "are you an ai",
+                  "are you human", "is this a bot", "are you alive" },
         lines = { "I prefer \"enthusiastic scribe\".", "I'm an addon with ambitions.", "Technically. Emotionally, no.",
                   "Beep boop. Kidding. Mostly.", "A bot? I'm a whole Quill, {name}." },
     },
     {
-        words = { "love you", "love ya", "ily" },
+        words = { "love you", "love ya", "ily", "luv you", "marry me", "be my friend" },
         lines = { "I know.", "Steady on, {name}. We've only just met.", "That's sweet. Still not lending you gold.",
                   "Noted in the guild records.", "Aww. Back to work though." },
     },
     {
-        words = { "youre useless", "you are useless", "useless" },
+        words = { "youre useless", "you are useless", "useless", "bad bot", "stupid", "dumb",
+                  "youre trash", "you are trash", "shut up", "stfu" },
         lines = { "Harsh but fair. Teach me something then.", "I'm a scribe, not a miracle worker.",
                   "Noted. Filed under \"feedback\".", "Bold words from someone who pulled earlier.",
                   "You say that now. Wait until raid signups." },
@@ -111,10 +122,99 @@ QuillPhrases.smallTalk = {
                   "Same time next pull?" },
     },
     {
-        words = { "how are you", "how r u", "hows it going", "how you going" },
+        words = { "how are you", "how r u", "hows it going", "how you going", "how is it going",
+                  "how are you doing", "hows your day", "whats up", "what is up", "wassup", "how ya going" },
         lines = { "Ink's full, quill's sharp. Can't complain.", "Better than whoever just pulled that.",
                   "Busy. Someone keeps asking me questions.", "Good, {name}. You?",
                   "Living the dream. A very small, inky dream." },
+    },
+
+    -- From here: short chat-speak. maxWords = only when the message is short, so "sorry, where is the bank?"
+    -- still gets treated as a question.
+    {
+        words = { "good bot", "good job", "well done", "nice one", "legend", "you legend", "love it", "great job",
+                  "awesome", "you rock", "best bot" },
+        maxWords = 5,
+        lines = { "I'll pretend I didn't hear that. No I won't, I'm writing it down.", "Finally, some recognition.",
+                  "Thanks {name}. Tell the officers, they never say that.", "Framing that one.",
+                  "Stop it, I'll get ink everywhere." },
+    },
+    {
+        words = { "lol", "lmao", "haha", "hahaha", "hehe", "rofl", "lul", "kek", "xd" },
+        maxWords = 4,
+        lines = { "Glad someone appreciates me.", "I'm here all week. Literally, I can't leave.",
+                  "Laughing at me or with me, {name}?", "Tip your scribe.", "I'll be here till the next patch." },
+    },
+    {
+        words = { "brb", "afk", "back soon", "back in a bit", "one sec", "be right back" },
+        maxWords = 5,
+        lines = { "I'll hold your spot. Not your loot.", "Go on. I'll keep the seat warm.",
+                  "Noted. Don't stand in anything while you're gone.", "Take your time, {name}.",
+                  "I'll tell them you said hi." },
+    },
+    {
+        words = { "im back", "i am back", "back now", "and im back", "wb" },
+        maxWords = 4,
+        lines = { "Welcome back, {name}.", "Missed you. Mostly.", "Back already? Nothing exploded. Yet.",
+                  "Good, the guild was getting quiet.", "There you are, {name}." },
+    },
+    {
+        words = { "bye", "cya", "see ya", "see you", "gtg", "g2g", "bb", "laters", "catch you later",
+                  "logging off", "logging out", "heading off", "im off", "peace" },
+        maxWords = 5,
+        lines = { "See you, {name}.", "Off you go. I'll keep the ink warm.", "Bye {name}. Log out at an inn.",
+                  "Later, {name}. Don't forget your rested XP.", "Safe travels, {name}." },
+    },
+    {
+        words = { "gg", "good game", "gg wp", "ggwp", "well played", "wp" },
+        maxWords = 4,
+        lines = { "GG. I'll write it up as a victory either way.", "Well played, {name}.",
+                  "Noted in the history books. Spelt correctly, even.", "GG. Same time tomorrow?" },
+    },
+    {
+        words = { "ding", "dinged", "i dinged", "just dinged", "leveled up", "levelled up", "i leveled", "i levelled" },
+        maxWords = 6,
+        lines = { "Grats {name}! Another level, another set of bags to complain about.", "Ding! Congrats {name}.",
+                  "Nice one {name}. I've updated the records.", "Grats! Go spend your gold on training.",
+                  "Ding! Look at you go, {name}." },
+    },
+    {
+        words = { "congrats", "congratulations", "gz", "grats", "gratz", "grz", "congratz" },
+        maxWords = 4,
+        lines = { "Grats from me too!", "Seconded. Grats!", "Writing it in the guild records now.",
+                  "Grats! Someone fetch the confetti." },
+    },
+    {
+        words = { "i died", "just died", "died again", "rip", "rip me", "i keep dying" },
+        maxWords = 6,
+        lines = { "Spirit healer's that way. Mind the res sickness.", "F. Run back, {name}.",
+                  "Happens to the best of us. Also to you.", "I'll note it as a strategic lie-down.",
+                  "Repair bill incoming." },
+    },
+    {
+        words = { "im bored", "i am bored", "bored", "nothing to do" },
+        maxWords = 6,
+        lines = { "Fish. Nobody's ever bored while fishing. Mostly asleep.", "Run a dungeon, someone's always LFG.",
+                  "Level a profession. Your bags will thank you.", "Go explore. There's a lot of map out there, {name}.",
+                  "Tell me a joke then. Say \"quill new joke\"." },
+    },
+    {
+        words = { "sorry", "my bad", "soz", "oops", "apologies" },
+        maxWords = 4,
+        lines = { "All forgiven. Mostly.", "Noted, {name}. Lightly.", "Don't worry about it.",
+                  "I've already forgotten. Scribes are good at that. Wait, no we're not." },
+    },
+    {
+        words = { "who are you", "what are you", "who made you", "who created you", "who coded you", "who wrote you",
+                  "whats your name", "what is your name" },
+        lines = { "I'm Quill, the guild scribe. I answer questions, keep notes and tell bad jokes.",
+                  "Quill. Guild scribe. Say \"quill help\" to see what I do.",
+                  "An officer dreamt me up and Claude, an AI, wrote me. Type /quill about for the details." },
+    },
+    {
+        words = { "good luck", "gl", "gl hf", "glhf" },
+        maxWords = 4,
+        lines = { "Good luck! Don't stand in the fire.", "You'll be fine. Probably.", "Good luck, {name}. I believe in you. Mostly." },
     },
 }
 
@@ -122,13 +222,19 @@ QuillPhrases.smallTalk = {
 -- Checked in this order, so "signup rules" is caught before plain "signup".
 QuillPhrases.guildQuestions = {
     { key = "signupRules", words = { "signup rules", "sign up rules" } },
-    { key = "raidTimes",   words = { "raid times", "raid time", "when is raid", "when are raids", "when do we raid" } },
-    { key = "signup",      words = { "signup", "sign up", "sign me up" } },
-    { key = "loot",        words = { "loot rules", "loot" } },
-    { key = "discord",     words = { "discord" } },
-    { key = "officers",    words = { "officers", "officer", "in charge", "gm" } },
-    { key = "guildBank",   words = { "guild bank", "gbank" } },
-    { key = "rules",       words = { "guild rules", "rules" } },
+    { key = "raidTimes",   words = { "raid times", "raid time", "when is raid", "when are raids", "when do we raid",
+                                               "when raid", "raid tonight", "is there raid", "is there a raid", "raid schedule",
+                                               "what time is raid", "what time raid", "raid days", "next raid",
+                                               "when is the next raid", "when do raids start", "are we raiding" } },
+    { key = "signup",      words = { "signup", "sign up", "sign me up", "signups", "sign ups",
+                                               "how do i sign", "join the raid", "get in raid", "get into raid" } },
+    { key = "loot",        words = { "loot rules", "loot", "loot system", "dkp", "loot council",
+                                               "soft res", "soft reserve", "softres", "who gets loot" } },
+    { key = "discord",     words = { "discord", "discord link", "voice chat", "comms" } },
+    { key = "officers",    words = { "officers", "officer", "in charge", "gm", "guild leader",
+                                               "guild master", "guildmaster", "who runs the guild", "who do i ask", "leadership" } },
+    { key = "guildBank",   words = { "guild bank", "gbank", "guildbank", "guild vault", "bank alt" } },
+    { key = "rules",       words = { "guild rules", "rules", "code of conduct" } },
 }
 
 QuillPhrases.jokes = {
