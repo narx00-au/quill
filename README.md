@@ -39,3 +39,7 @@ Download **QuillSetup.exe** from [Releases](../../releases) and follow the steps
 The addon never leaves the game: it talks only in guild chat and the guild's hidden addon channel. The back office
 keeps your bot token and AI key in `%APPDATA%\QuillOffice` on your PC and sends them nowhere except Discord and
 Anthropic.
+
+## Licence
+
+MIT: use it, change it, share it, just keep the credit. See [LICENSE](LICENSE).
