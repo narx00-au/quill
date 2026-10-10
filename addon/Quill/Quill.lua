@@ -812,7 +812,7 @@ end)
 
 
 -- ---- Making Quill's lines look like Quill's -----------------
--- On YOUR screen (and every guildie with the addon), "Medalin: Quill: hi"
+-- On YOUR screen (and every guildie with the addon), "narx00: Quill: hi"
 -- is redrawn as "[Quill]: hi". People without the addon still see the speaker's name.
 
 if ChatFrame_AddMessageEventFilter then

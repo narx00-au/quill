@@ -31,4 +31,4 @@ Anthropic account. Guide and download: https://github.com/narx00-au/quill
 
 ---
 
-*Quill was designed by Medalin and coded by Claude (claude.ai), Anthropic's AI.*
+*Quill was designed by narx00 and coded by Claude (claude.ai), Anthropic's AI.*

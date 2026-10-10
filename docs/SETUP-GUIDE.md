@@ -4,7 +4,7 @@ Quill is a guild scribe for **World of Warcraft: Forever**. He answers guildies 
 cheers level-ups, welcomes new members and tells jokes. With the optional back office, he can learn new
 answers that your officers approve, and an AI can help look things up.
 
-*Quill was designed by Medalin and coded by Claude ([claude.ai](https://claude.ai)), Anthropic's AI.*
+*Quill was designed by narx00 and coded by Claude ([claude.ai](https://claude.ai)), Anthropic's AI.*
 
 ---
 

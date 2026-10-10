@@ -16,7 +16,7 @@ QuillGuild = {
     signupRules = "",   -- e.g. "Sign up by the night before. No-shows lose priority."
     loot        = "",   -- e.g. "Loot council. Main spec beats off spec."
     discord     = "",   -- e.g. "Our Discord: discord.gg/xxxx. Quill's answers go in #quill."
-    officers    = "",   -- e.g. "Officers are Vex and Grimtusk. GM is Medalin."
+    officers    = "",   -- e.g. "Officers are Vex and Grimtusk. GM is narx00."
     guildBank   = "",   -- e.g. "Ask an officer before taking anything. Donations welcome."
     rules       = "",   -- e.g. "Be decent, don't ninja, full rules in #rules on Discord."
     answersChannel = "",   -- the Discord channel where answers get posted ("" = don't mention Discord)
