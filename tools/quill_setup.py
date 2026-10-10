@@ -7,7 +7,7 @@
 #    - AI: drafts answers to questions Quill can't answer (the guild's own key)
 #  Everything is saved in %APPDATA%\QuillOffice and runs on this PC only.
 #
-#  Quill was designed by Ewen and coded by Claude (claude.ai), Anthropic's AI.
+#  Quill was designed by Medalin and coded by Claude (claude.ai), Anthropic's AI.
 # ============================================================
 
 import glob
@@ -28,7 +28,7 @@ APP_NAME = "Quill Setup"
 HOME = Path(os.environ.get("QUILL_HOME") or Path(os.environ.get("APPDATA", Path.home())) / "QuillOffice")
 HERE = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent.parent))   # bundled files (exe) or repo
 ADDON_SOURCE = HERE / "addon" / "Quill"
-CREDIT = "Quill was designed by Ewen and coded by Claude (claude.ai), Anthropic's AI."
+CREDIT = "Quill was designed by Medalin and coded by Claude (claude.ai), Anthropic's AI."
 USER_AGENT = "DiscordBot (https://github.com/narx00-au/quill, 1.0)"
 
 # What Quill's bot may do in your Discord: see and post in its channels, add reactions,

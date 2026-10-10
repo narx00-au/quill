@@ -10,7 +10,7 @@ A **World of Warcraft: Forever** addon that lives in your guild chat. Say `quill
 - Only **one** copy talks, however many guildies install it. The copies sort it out among themselves over the
   game's hidden addon channel.
 
-*Quill was designed by Ewen and coded by Claude ([claude.ai](https://claude.ai)), Anthropic's AI.*
+*Quill was designed by Medalin and coded by Claude ([claude.ai](https://claude.ai)), Anthropic's AI.*
 
 ## Players
 

@@ -1,8 +1,8 @@
 ## Interface: 16001
 ## Title: Quill
 ## Notes: The guild scribe. Say "hey quill, help" in guild chat.
-## Author: Ewen
-## X-Credits: Designed by Ewen. Code written by Claude (claude.ai), Anthropic's AI.
+## Author: Medalin
+## X-Credits: Designed by Medalin. Code written by Claude (claude.ai), Anthropic's AI.
 ## Version: 0.11
 ## SavedVariables: QuillDB
 

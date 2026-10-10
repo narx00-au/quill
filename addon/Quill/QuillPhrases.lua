@@ -311,4 +311,4 @@ QuillPhrases.noOffice = {
     help3   = "If I don't know something, ask an officer.",
 }
 
-QuillPhrases.about = "Quill v{version}, the guild scribe. Designed by Ewen, coded by Claude (claude.ai), Anthropic's AI."
+QuillPhrases.about = "Quill v{version}, the guild scribe. Designed by Medalin, coded by Claude (claude.ai), Anthropic's AI."
